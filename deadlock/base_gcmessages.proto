@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "steammessages.proto";
 import "gcsdk_gcmessages.proto";
 import "steammessages_steamlearn.steamworkssdk.proto";
@@ -55,7 +60,7 @@ message CMsgGCStorePurchaseInit {
 	optional string country = 1;
 	optional int32 language = 2;
 	optional int32 currency = 3;
-	repeated .CGCStorePurchaseInit_LineItem line_items = 4;
+	repeated CGCStorePurchaseInit_LineItem line_items = 4;
 }
 
 message CMsgGCStorePurchaseInitResponse {
@@ -76,7 +81,7 @@ message CMsgInviteToParty {
 	optional uint32 client_version = 2;
 	optional uint32 team_id = 3;
 	optional bool as_coach = 4;
-	optional .CMsgClientPingData ping_data = 5;
+	optional CMsgClientPingData ping_data = 5;
 }
 
 message CMsgInviteToLobby {
@@ -94,7 +99,7 @@ message CMsgPartyInviteResponse {
 	optional uint64 party_id = 1;
 	optional bool accept = 2;
 	optional uint32 client_version = 3;
-	optional .CMsgClientPingData ping_data = 8;
+	optional CMsgClientPingData ping_data = 8;
 }
 
 message CMsgLobbyInviteResponse {
@@ -113,13 +118,13 @@ message CMsgLeaveParty {
 }
 
 message CMsgCustomGameInstallStatus {
-	optional .ECustomGameInstallStatus status = 1 [default = k_ECustomGameInstallStatus_Unknown];
+	optional ECustomGameInstallStatus status = 1 [default = k_ECustomGameInstallStatus_Unknown];
 	optional string message = 2;
 	optional fixed32 latest_timestamp_from_steam = 3;
 }
 
 message CMsgServerAvailable {
-	optional .CMsgCustomGameInstallStatus custom_game_install_status = 1;
+	optional CMsgCustomGameInstallStatus custom_game_install_status = 1;
 }
 
 message CMsgLANServerAvailable {
@@ -173,11 +178,11 @@ message CSOEconItem {
 	optional uint32 quality = 7 [default = 4];
 	optional uint32 flags = 8 [default = 0];
 	optional uint32 origin = 9 [default = 0];
-	repeated .CSOEconItemAttribute attribute = 12;
-	optional .CSOEconItem interior_item = 13;
+	repeated CSOEconItemAttribute attribute = 12;
+	optional CSOEconItem interior_item = 13;
 	optional uint32 style = 15 [default = 0];
 	optional uint64 original_id = 16;
-	repeated .CSOEconItemEquipped equipped_state = 18;
+	repeated CSOEconItemEquipped equipped_state = 18;
 }
 
 message CMsgSortItems {
@@ -199,7 +204,7 @@ message CMsgSetItemPositions {
 		optional uint32 position = 2;
 	}
 
-	repeated .CMsgSetItemPositions.ItemPosition item_positions = 1;
+	repeated CMsgSetItemPositions.ItemPosition item_positions = 1;
 }
 
 message CMsgGCStorePurchaseCancel {
@@ -262,7 +267,7 @@ message CMsgExtractGemsResponse {
 	}
 
 	optional uint64 item_id = 1;
-	optional .CMsgExtractGemsResponse.EExtractGems response = 2 [default = k_ExtractGems_Succeeded];
+	optional CMsgExtractGemsResponse.EExtractGems response = 2 [default = k_ExtractGems_Succeeded];
 }
 
 message CMsgAddSocket {
@@ -281,7 +286,7 @@ message CMsgAddSocketResponse {
 
 	optional uint64 item_id = 1;
 	repeated uint32 updated_socket_index = 2;
-	optional .CMsgAddSocketResponse.EAddSocket response = 3 [default = k_AddSocket_Succeeded];
+	optional CMsgAddSocketResponse.EAddSocket response = 3 [default = k_AddSocket_Succeeded];
 }
 
 message CMsgAddItemToSocketData {
@@ -291,7 +296,7 @@ message CMsgAddItemToSocketData {
 
 message CMsgAddItemToSocket {
 	optional uint64 item_item_id = 1;
-	repeated .CMsgAddItemToSocketData gems_to_socket = 2;
+	repeated CMsgAddItemToSocketData gems_to_socket = 2;
 }
 
 message CMsgAddItemToSocketResponse {
@@ -308,7 +313,7 @@ message CMsgAddItemToSocketResponse {
 
 	optional uint64 item_item_id = 1;
 	repeated uint32 updated_socket_index = 2;
-	optional .CMsgAddItemToSocketResponse.EAddGem response = 3 [default = k_AddGem_Succeeded];
+	optional CMsgAddItemToSocketResponse.EAddGem response = 3 [default = k_AddGem_Succeeded];
 }
 
 message CMsgResetStrangeGemCount {
@@ -325,7 +330,7 @@ message CMsgResetStrangeGemCountResponse {
 		k_ResetGem_Failed_SocketCannotBeReset = 4;
 	}
 
-	optional .CMsgResetStrangeGemCountResponse.EResetGem response = 1 [default = k_ResetGem_Succeeded];
+	optional CMsgResetStrangeGemCountResponse.EResetGem response = 1 [default = k_ResetGem_Succeeded];
 }
 
 message CMsgGCToClientPollFileRequest {
@@ -354,7 +359,7 @@ message CMsgGCToGCReloadServerRegionSettings {
 }
 
 message CMsgGCAdditionalWelcomeMsgList {
-	repeated .CExtraMsgBlock welcome_messages = 1;
+	repeated CExtraMsgBlock welcome_messages = 1;
 }
 
 message CMsgApplyRemoteConVars {
@@ -363,18 +368,18 @@ message CMsgApplyRemoteConVars {
 		optional string value = 2;
 		optional uint32 version_min = 3;
 		optional uint32 version_max = 4;
-		optional .EGCPlatform platform = 5 [default = k_eGCPlatform_None];
+		optional EGCPlatform platform = 5 [default = k_eGCPlatform_None];
 	}
 
-	repeated .CMsgApplyRemoteConVars.ConVar con_vars = 1;
+	repeated CMsgApplyRemoteConVars.ConVar con_vars = 1;
 }
 
 message CMsgGCToClientApplyRemoteConVars {
-	optional .CMsgApplyRemoteConVars msg = 1;
+	optional CMsgApplyRemoteConVars msg = 1;
 }
 
 message CMsgGCToServerApplyRemoteConVars {
-	optional .CMsgApplyRemoteConVars msg = 1;
+	optional CMsgApplyRemoteConVars msg = 1;
 }
 
 message CMsgClientToGCIntegrityStatus {
@@ -387,7 +392,7 @@ message CMsgClientToGCIntegrityStatus {
 
 	optional string report = 1;
 	optional bool secure_allowed = 2;
-	repeated .CMsgClientToGCIntegrityStatus.keyvalue diagnostics = 3;
+	repeated CMsgClientToGCIntegrityStatus.keyvalue diagnostics = 3;
 }
 
 message CMsgClientToGCAggregateMetrics {
@@ -396,7 +401,7 @@ message CMsgClientToGCAggregateMetrics {
 		optional uint32 metric_count = 2;
 	}
 
-	repeated .CMsgClientToGCAggregateMetrics.SingleMetric metrics = 1;
+	repeated CMsgClientToGCAggregateMetrics.SingleMetric metrics = 1;
 }
 
 message CMsgGCToClientAggregateMetricsBackoff {
@@ -404,7 +409,7 @@ message CMsgGCToClientAggregateMetricsBackoff {
 }
 
 message CMsgGCToServerSteamLearnAccessTokensChanged {
-	optional .CMsgSteamLearnAccessTokens access_tokens = 1;
+	optional CMsgSteamLearnAccessTokens access_tokens = 1;
 }
 
 message CMsgGCToServerSteamLearnUseHTTP {

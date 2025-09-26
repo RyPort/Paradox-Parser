@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 option optimize_for = SPEED;
 option cc_generic_services = false;
 

@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "steammessages_unified_base.steamworkssdk.proto";
 
 message CPublishedFile_Subscribe_Request {
@@ -136,16 +141,16 @@ message PublishedFileDetails {
 	optional string shortcutname = 48;
 	optional uint32 num_children = 49;
 	optional uint32 num_reports = 50;
-	repeated .PublishedFileDetails.Preview previews = 51;
-	repeated .PublishedFileDetails.Tag tags = 52;
-	repeated .PublishedFileDetails.Child children = 53;
-	repeated .PublishedFileDetails.KVTag kvtags = 54;
-	optional .PublishedFileDetails.VoteData vote_data = 55;
+	repeated PublishedFileDetails.Preview previews = 51;
+	repeated PublishedFileDetails.Tag tags = 52;
+	repeated PublishedFileDetails.Child children = 53;
+	repeated PublishedFileDetails.KVTag kvtags = 54;
+	optional PublishedFileDetails.VoteData vote_data = 55;
 	optional uint32 time_subscribed = 56 [(description) = "Only valid in PublishedFile.GetUserFiles and not normal PublishedFile.GetDetail calls"];
 }
 
 message CPublishedFile_GetDetails_Response {
-	repeated .PublishedFileDetails publishedfiledetails = 1;
+	repeated PublishedFileDetails publishedfiledetails = 1;
 }
 
 message CPublishedFile_GetUserFiles_Request {
@@ -170,8 +175,8 @@ message CPublishedFile_GetUserFiles_Response {
 
 	optional uint32 total = 1;
 	optional uint32 startindex = 2;
-	repeated .PublishedFileDetails publishedfiledetails = 3;
-	repeated .CPublishedFile_GetUserFiles_Response.App apps = 4;
+	repeated PublishedFileDetails publishedfiledetails = 3;
+	repeated CPublishedFile_GetUserFiles_Response.App apps = 4;
 }
 
 message CPublishedFile_Update_Request {
@@ -203,31 +208,31 @@ message CPublishedFile_RefreshVotingQueue_Response {
 service PublishedFile {
 	option (service_description) = "A service to access published file data";
 
-	rpc Subscribe (.CPublishedFile_Subscribe_Request) returns (.CPublishedFile_Subscribe_Response) {
+	rpc Subscribe (CPublishedFile_Subscribe_Request) returns (CPublishedFile_Subscribe_Response) {
 		option (method_description) = "Subscribes the user to the published file";
 	}
 
-	rpc Unsubscribe (.CPublishedFile_Unsubscribe_Request) returns (.CPublishedFile_Unsubscribe_Response) {
+	rpc Unsubscribe (CPublishedFile_Unsubscribe_Request) returns (CPublishedFile_Unsubscribe_Response) {
 		option (method_description) = "Unsubscribes the user from the published file";
 	}
 
-	rpc Publish (.CPublishedFile_Publish_Request) returns (.CPublishedFile_Publish_Response) {
+	rpc Publish (CPublishedFile_Publish_Request) returns (CPublishedFile_Publish_Response) {
 		option (method_description) = "Publishes a clouded user file to the Workshop.";
 	}
 
-	rpc GetDetails (.CPublishedFile_GetDetails_Request) returns (.CPublishedFile_GetDetails_Response) {
+	rpc GetDetails (CPublishedFile_GetDetails_Request) returns (CPublishedFile_GetDetails_Response) {
 		option (method_description) = "Retrieves information about a set of published files.";
 	}
 
-	rpc GetUserFiles (.CPublishedFile_GetUserFiles_Request) returns (.CPublishedFile_GetUserFiles_Response) {
+	rpc GetUserFiles (CPublishedFile_GetUserFiles_Request) returns (CPublishedFile_GetUserFiles_Response) {
 		option (method_description) = "Retrieves files published by a user.";
 	}
 
-	rpc Update (.CPublishedFile_Update_Request) returns (.CPublishedFile_Update_Response) {
+	rpc Update (CPublishedFile_Update_Request) returns (CPublishedFile_Update_Response) {
 		option (method_description) = "Updates information about a published file.";
 	}
 
-	rpc RefreshVotingQueue (.CPublishedFile_RefreshVotingQueue_Request) returns (.CPublishedFile_RefreshVotingQueue_Response) {
+	rpc RefreshVotingQueue (CPublishedFile_RefreshVotingQueue_Request) returns (CPublishedFile_RefreshVotingQueue_Response) {
 		option (method_description) = "Refresh the voting queue for the user";
 	}
 }

@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "valveextensions.proto";
 import "steammessages.proto";
 import "steammessages_steamlearn.steamworkssdk.proto";
@@ -39,8 +44,8 @@ message CMsgSteamLearnServerInfo {
 		optional bool snapshot_enabled = 7;
 	}
 
-	optional .CMsgSteamLearnAccessTokens access_tokens = 4;
-	repeated .CMsgSteamLearnServerInfo.ProjectInfo project_infos = 5;
+	optional CMsgSteamLearnAccessTokens access_tokens = 4;
+	repeated CMsgSteamLearnServerInfo.ProjectInfo project_infos = 5;
 }
 
 message CMsgGCAssertJobData {
@@ -59,7 +64,7 @@ message CMsgSDOAssert {
 	}
 
 	optional int32 sdo_type = 1;
-	repeated .CMsgSDOAssert.Request requests = 2;
+	repeated CMsgSDOAssert.Request requests = 2;
 }
 
 message CMsgSOIDOwner {
@@ -71,7 +76,7 @@ message CMsgSOSingleObject {
 	optional int32 type_id = 2;
 	optional bytes object_data = 3;
 	optional fixed64 version = 4;
-	optional .CMsgSOIDOwner owner_soid = 5;
+	optional CMsgSOIDOwner owner_soid = 5;
 	optional uint32 service_id = 6;
 }
 
@@ -84,11 +89,11 @@ message CMsgSOMultipleObjects {
 		optional bytes object_data = 2;
 	}
 
-	repeated .CMsgSOMultipleObjects.SingleObject objects_modified = 2;
+	repeated CMsgSOMultipleObjects.SingleObject objects_modified = 2;
 	optional fixed64 version = 3;
-	repeated .CMsgSOMultipleObjects.SingleObject objects_added = 4;
-	repeated .CMsgSOMultipleObjects.SingleObject objects_removed = 5;
-	optional .CMsgSOIDOwner owner_soid = 6;
+	repeated CMsgSOMultipleObjects.SingleObject objects_added = 4;
+	repeated CMsgSOMultipleObjects.SingleObject objects_removed = 5;
+	optional CMsgSOIDOwner owner_soid = 6;
 	optional uint32 service_id = 7;
 }
 
@@ -98,9 +103,9 @@ message CMsgSOCacheSubscribed {
 		repeated bytes object_data = 2;
 	}
 
-	repeated .CMsgSOCacheSubscribed.SubscribedType objects = 2;
+	repeated CMsgSOCacheSubscribed.SubscribedType objects = 2;
 	optional fixed64 version = 3;
-	optional .CMsgSOIDOwner owner_soid = 4;
+	optional CMsgSOIDOwner owner_soid = 4;
 	optional uint32 service_id = 5;
 	repeated uint32 service_list = 6;
 	optional fixed64 sync_version = 7;
@@ -108,26 +113,26 @@ message CMsgSOCacheSubscribed {
 
 message CMsgSOCacheSubscribedUpToDate {
 	optional fixed64 version = 1;
-	optional .CMsgSOIDOwner owner_soid = 2;
+	optional CMsgSOIDOwner owner_soid = 2;
 	optional uint32 service_id = 3;
 	repeated uint32 service_list = 4;
 	optional fixed64 sync_version = 5;
 }
 
 message CMsgSOCacheUnsubscribed {
-	optional .CMsgSOIDOwner owner_soid = 2;
+	optional CMsgSOIDOwner owner_soid = 2;
 }
 
 message CMsgSOCacheSubscriptionCheck {
 	optional fixed64 version = 2;
-	optional .CMsgSOIDOwner owner_soid = 3;
+	optional CMsgSOIDOwner owner_soid = 3;
 	optional uint32 service_id = 4;
 	repeated uint32 service_list = 5;
 	optional fixed64 sync_version = 6;
 }
 
 message CMsgSOCacheSubscriptionRefresh {
-	optional .CMsgSOIDOwner owner_soid = 2;
+	optional CMsgSOIDOwner owner_soid = 2;
 }
 
 message CMsgSOCacheVersion {
@@ -153,7 +158,7 @@ message CGCToGCMsgMasterAck {
 	optional int32 dir_index = 1 [default = -1];
 	optional string machine_name = 3;
 	optional string process_name = 4;
-	repeated .CGCToGCMsgMasterAck.Process directory = 6;
+	repeated CGCToGCMsgMasterAck.Process directory = 6;
 }
 
 message CGCToGCMsgMasterAck_Response {
@@ -174,7 +179,7 @@ message CGCToGCMsgMasterStartupComplete {
 		optional string machine_name = 2;
 	}
 
-	repeated .CGCToGCMsgMasterStartupComplete.GCInfo gc_info = 1;
+	repeated CGCToGCMsgMasterStartupComplete.GCInfo gc_info = 1;
 }
 
 message CGCToGCMsgRouted {
@@ -195,7 +200,7 @@ message CMsgGCUpdateSubGCSessionInfo {
 		optional bool trusted = 3;
 	}
 
-	repeated .CMsgGCUpdateSubGCSessionInfo.CMsgUpdate updates = 1;
+	repeated CMsgGCUpdateSubGCSessionInfo.CMsgUpdate updates = 1;
 }
 
 message CMsgGCRequestSubGCSessionInfo {
@@ -210,7 +215,7 @@ message CMsgGCRequestSubGCSessionInfoResponse {
 }
 
 message CMsgSOCacheHaveVersion {
-	optional .CMsgSOIDOwner soid = 1;
+	optional CMsgSOIDOwner soid = 1;
 	optional fixed64 version = 2;
 	optional uint32 service_id = 3;
 	optional uint32 cached_file_version = 4;
@@ -218,12 +223,12 @@ message CMsgSOCacheHaveVersion {
 
 message CMsgClientHello {
 	optional uint32 version = 1;
-	repeated .CMsgSOCacheHaveVersion socache_have_versions = 2;
+	repeated CMsgSOCacheHaveVersion socache_have_versions = 2;
 	optional uint32 client_session_need = 3;
-	optional .PartnerAccountType client_launcher = 4 [default = PARTNER_NONE];
+	optional PartnerAccountType client_launcher = 4 [default = PARTNER_NONE];
 	optional string secret_key = 5;
 	optional uint32 client_language = 6;
-	optional .ESourceEngine engine = 7 [default = k_ESE_Source1];
+	optional ESourceEngine engine = 7 [default = k_ESE_Source1];
 	optional bytes steamdatagram_login = 8;
 	optional uint32 platform_id = 9;
 	optional bytes game_msg = 10;
@@ -251,9 +256,9 @@ message CMsgClientWelcome {
 
 	optional uint32 version = 1;
 	optional bytes game_data = 2;
-	repeated .CMsgSOCacheSubscribed outofdate_subscribed_caches = 3;
-	repeated .CMsgSOCacheSubscriptionCheck uptodate_subscribed_caches = 4;
-	optional .CMsgClientWelcome.Location location = 5;
+	repeated CMsgSOCacheSubscribed outofdate_subscribed_caches = 3;
+	repeated CMsgSOCacheSubscriptionCheck uptodate_subscribed_caches = 4;
+	optional CMsgClientWelcome.Location location = 5;
 	optional uint32 gc_socache_file_version = 9;
 	optional string txn_country_code = 10;
 	optional bytes game_data2 = 11;
@@ -263,12 +268,12 @@ message CMsgClientWelcome {
 	optional string balance_url = 15;
 	optional bool has_accepted_china_ssa = 16;
 	optional bool is_banned_steam_china = 17;
-	optional .CExtraMsgBlock additional_welcome_msgs = 18;
-	optional .CMsgSteamLearnServerInfo steam_learn_server_info = 20;
+	optional CExtraMsgBlock additional_welcome_msgs = 18;
+	optional CMsgSteamLearnServerInfo steam_learn_server_info = 20;
 }
 
 message CMsgConnectionStatus {
-	optional .GCConnectionStatus status = 1 [default = GCConnectionStatus_HAVE_SESSION];
+	optional GCConnectionStatus status = 1 [default = GCConnectionStatus_HAVE_SESSION];
 	optional uint32 client_session_need = 2;
 	optional int32 queue_position = 3;
 	optional int32 queue_size = 4;
@@ -285,7 +290,7 @@ message CMsgGCToGCSOCacheSubscribe {
 	optional fixed64 subscriber = 1;
 	optional fixed64 subscribe_to_id = 2;
 	optional fixed64 sync_version = 3;
-	repeated .CMsgGCToGCSOCacheSubscribe.CMsgHaveVersions have_versions = 4;
+	repeated CMsgGCToGCSOCacheSubscribe.CMsgHaveVersions have_versions = 4;
 	optional uint32 subscribe_to_type = 5;
 }
 
@@ -300,13 +305,13 @@ message CMsgGCClientPing {
 
 message CMsgGCToGCForwardAccountDetails {
 	optional fixed64 steamid = 1;
-	optional .CGCSystemMsg_GetAccountDetails_Response account_details = 2;
+	optional CGCSystemMsg_GetAccountDetails_Response account_details = 2;
 	optional uint32 age_seconds = 3;
 }
 
 message CMsgGCToGCLoadSessionSOCache {
 	optional uint32 account_id = 1;
-	optional .CMsgGCToGCForwardAccountDetails forward_account_details = 2;
+	optional CMsgGCToGCForwardAccountDetails forward_account_details = 2;
 }
 
 message CMsgGCToGCLoadSessionSOCacheResponse {
@@ -329,11 +334,11 @@ message CWorkshop_PopulateItemDescriptions_Request {
 
 	message ItemDescriptionsLanguageBlock {
 		optional string language = 1;
-		repeated .CWorkshop_PopulateItemDescriptions_Request.SingleItemDescription descriptions = 2;
+		repeated CWorkshop_PopulateItemDescriptions_Request.SingleItemDescription descriptions = 2;
 	}
 
 	optional uint32 appid = 1;
-	repeated .CWorkshop_PopulateItemDescriptions_Request.ItemDescriptionsLanguageBlock languages = 2;
+	repeated CWorkshop_PopulateItemDescriptions_Request.ItemDescriptionsLanguageBlock languages = 2;
 }
 
 message CWorkshop_GetContributors_Request {
@@ -366,11 +371,11 @@ message CWorkshop_SetItemPaymentRules_Request {
 
 	optional uint32 appid = 1;
 	optional uint32 gameitemid = 2;
-	repeated .CWorkshop_SetItemPaymentRules_Request.WorkshopItemPaymentRule associated_workshop_files = 3;
-	repeated .CWorkshop_SetItemPaymentRules_Request.PartnerItemPaymentRule partner_accounts = 4;
+	repeated CWorkshop_SetItemPaymentRules_Request.WorkshopItemPaymentRule associated_workshop_files = 3;
+	repeated CWorkshop_SetItemPaymentRules_Request.PartnerItemPaymentRule partner_accounts = 4;
 	optional bool validate_only = 5;
 	optional bool make_workshop_files_subscribable = 6;
-	optional .CWorkshop_SetItemPaymentRules_Request.WorkshopDirectPaymentRule associated_workshop_file_for_direct_payments = 7;
+	optional CWorkshop_SetItemPaymentRules_Request.WorkshopDirectPaymentRule associated_workshop_file_for_direct_payments = 7;
 }
 
 message CWorkshop_SetItemPaymentRules_Response {
@@ -411,7 +416,7 @@ message CCommunity_GetClanAnnouncements_Request {
 message CCommunity_GetClanAnnouncements_Response {
 	optional uint32 maxchars = 1;
 	optional bool strip_html = 2;
-	repeated .CCommunity_ClanAnnouncementInfo announcements = 3;
+	repeated CCommunity_ClanAnnouncementInfo announcements = 3;
 }
 
 message CBroadcast_PostGameDataFrame_Request {
@@ -436,12 +441,12 @@ message CMsgSerializedSOCache {
 
 		optional uint32 type = 1;
 		optional uint64 id = 2;
-		repeated .CMsgSerializedSOCache.Cache.Version versions = 3;
-		repeated .CMsgSerializedSOCache.TypeCache type_caches = 4;
+		repeated CMsgSerializedSOCache.Cache.Version versions = 3;
+		repeated CMsgSerializedSOCache.TypeCache type_caches = 4;
 	}
 
 	optional uint32 file_version = 1;
-	repeated .CMsgSerializedSOCache.Cache caches = 2;
+	repeated CMsgSerializedSOCache.Cache caches = 2;
 	optional uint32 gc_socache_file_version = 3;
 }
 
@@ -479,7 +484,7 @@ message CMsgGCToGCMasterSubscribeToCacheResponse {
 }
 
 message CMsgGCToGCMasterSubscribeToCacheAsync {
-	optional .CMsgGCToGCMasterSubscribeToCache subscribe_msg = 1;
+	optional CMsgGCToGCMasterSubscribeToCache subscribe_msg = 1;
 }
 
 message CMsgGCToGCMasterUnsubscribeFromCache {

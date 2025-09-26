@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "citadel_gcmessages_common.proto";
 
 enum ECitadelGameMessages {
@@ -23,7 +28,7 @@ message CMsgClientServerHeader {
 	optional uint64 game_instance_id = 1;
 	optional uint32 local_player_index = 2;
 	optional bytes payload = 3;
-	optional .ECitadelGameMessages msg_id = 4 [default = k_EMsgGameServerToClientConnectionStatus];
+	optional ECitadelGameMessages msg_id = 4 [default = k_EMsgGameServerToClientConnectionStatus];
 }
 
 message CMsgGameServerToClientGameCompleted {
@@ -35,7 +40,7 @@ message CMsgGameServerToClientGoodbye {
 message CMsgGameServerToClientConnectionStatus {
 	message Player {
 		optional int32 player_slot = 1 [default = -1];
-		optional .CMsgGameServerToClientConnectionStatus.EStatus status = 2 [default = k_EConnected];
+		optional CMsgGameServerToClientConnectionStatus.EStatus status = 2 [default = k_EConnected];
 		optional bool inactivity_ticking = 3;
 		optional uint32 inactivity_ms_remaining = 4;
 		optional uint32 inactivity_anim_ms_remaining = 5;
@@ -46,7 +51,7 @@ message CMsgGameServerToClientConnectionStatus {
 		k_EDisconnected = 2;
 	}
 
-	repeated .CMsgGameServerToClientConnectionStatus.Player players = 1;
+	repeated CMsgGameServerToClientConnectionStatus.Player players = 1;
 }
 
 message CClientReconnectInfo {

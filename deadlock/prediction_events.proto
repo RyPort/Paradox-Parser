@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "networkbasetypes.proto";
 
 enum EBasePredictionEvents {
@@ -7,8 +12,8 @@ enum EBasePredictionEvents {
 }
 
 message CPredictionEvent_Teleport {
-	optional .CMsgVector origin = 1;
-	optional .CMsgQAngle angles = 2;
+	optional CMsgVector origin = 1;
+	optional CMsgQAngle angles = 2;
 	optional float drop_to_ground_range = 3;
 }
 

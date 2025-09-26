@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 enum EGCEconBaseMsg {
 	k_EMsgGCGenericResult = 2579;
 }

@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "steamnetworkingsockets_messages_certs.proto";
 
 option optimize_for = SPEED;
@@ -18,7 +23,7 @@ message CMsgSteamDatagramRelayAuthTicket {
 	optional bytes gameserver_address = 11;
 	optional uint32 app_id = 7;
 	optional uint32 virtual_port = 10;
-	repeated .CMsgSteamDatagramRelayAuthTicket.ExtraField extra_fields = 8;
+	repeated CMsgSteamDatagramRelayAuthTicket.ExtraField extra_fields = 8;
 	optional fixed64 legacy_authorized_steam_id = 2;
 	optional fixed64 legacy_gameserver_steam_id = 4;
 	optional fixed32 legacy_gameserver_pop_id = 9;
@@ -31,7 +36,7 @@ message CMsgSteamDatagramSignedRelayAuthTicket {
 	optional bytes ticket = 3;
 	optional bytes signature = 4;
 	optional fixed64 key_id = 2;
-	repeated .CMsgSteamDatagramCertificateSigned certs = 5;
+	repeated CMsgSteamDatagramCertificateSigned certs = 5;
 }
 
 message CMsgSteamDatagramCachedCredentialsForApp {
@@ -51,7 +56,7 @@ message CMsgSteamDatagramGameCoordinatorServerLogin {
 }
 
 message CMsgSteamDatagramSignedGameCoordinatorServerLogin {
-	optional .CMsgSteamDatagramCertificateSigned cert = 1;
+	optional CMsgSteamDatagramCertificateSigned cert = 1;
 	optional bytes login = 2;
 	optional bytes signature = 3;
 }

@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "steammessages_unified_base.steamworkssdk.proto";
 
 message CCloud_GetUploadServerInfo_Request {
@@ -24,7 +29,7 @@ message CCloud_UserFile {
 }
 
 message CCloud_GetFileDetails_Response {
-	optional .CCloud_UserFile details = 1;
+	optional CCloud_UserFile details = 1;
 }
 
 message CCloud_EnumerateUserFiles_Request {
@@ -35,7 +40,7 @@ message CCloud_EnumerateUserFiles_Request {
 }
 
 message CCloud_EnumerateUserFiles_Response {
-	repeated .CCloud_UserFile files = 1;
+	repeated CCloud_UserFile files = 1;
 	optional uint32 total_files = 2;
 }
 
@@ -50,19 +55,19 @@ message CCloud_Delete_Response {
 service Cloud {
 	option (service_description) = "A service for Steam Cloud operations.";
 
-	rpc GetUploadServerInfo (.CCloud_GetUploadServerInfo_Request) returns (.CCloud_GetUploadServerInfo_Response) {
+	rpc GetUploadServerInfo (CCloud_GetUploadServerInfo_Request) returns (CCloud_GetUploadServerInfo_Response) {
 		option (method_description) = "Returns the URL of the proper cloud server for a user.";
 	}
 
-	rpc GetFileDetails (.CCloud_GetFileDetails_Request) returns (.CCloud_GetFileDetails_Response) {
+	rpc GetFileDetails (CCloud_GetFileDetails_Request) returns (CCloud_GetFileDetails_Response) {
 		option (method_description) = "Returns details on a Cloud file.";
 	}
 
-	rpc EnumerateUserFiles (.CCloud_EnumerateUserFiles_Request) returns (.CCloud_EnumerateUserFiles_Response) {
+	rpc EnumerateUserFiles (CCloud_EnumerateUserFiles_Request) returns (CCloud_EnumerateUserFiles_Response) {
 		option (method_description) = "Enumerates Cloud files for a user of a given app ID. Returns up to 500 files at a time.";
 	}
 
-	rpc Delete (.CCloud_Delete_Request) returns (.CCloud_Delete_Response) {
+	rpc Delete (CCloud_Delete_Request) returns (CCloud_Delete_Response) {
 		option (method_description) = "Deletes a file from the user's cloud.";
 	}
 }

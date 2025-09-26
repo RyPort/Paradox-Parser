@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "steammessages.proto";
 import "gcsdk_gcmessages.proto";
 import "citadel_gcmessages_common.proto";
@@ -294,7 +299,7 @@ message CSOAccountHeroInfo {
 
 	optional uint32 account_id = 1 [(key_field) = true];
 	optional uint32 hero_id = 2;
-	optional .CSOAccountHeroInfo.EHeroStatus status = 3 [default = k_eLocked];
+	optional CSOAccountHeroInfo.EHeroStatus status = 3 [default = k_eLocked];
 	optional uint32 wins = 4;
 	optional uint32 kills = 5;
 	optional uint32 hero_xp = 6;
@@ -316,11 +321,11 @@ message CSOAccountChallenge {
 
 	optional uint32 account_id = 1 [(key_field) = true];
 	optional uint64 challenge_id = 2;
-	optional .CSOAccountChallenge.EChallengeStatus status = 3 [default = k_eInvalid];
+	optional CSOAccountChallenge.EChallengeStatus status = 3 [default = k_eInvalid];
 	optional uint32 progress = 4;
 	optional uint32 max_progress = 5;
 	optional uint32 choice_group = 6;
-	optional .CSOAccountChallenge.ERewardType reward_type = 7 [default = k_eReward_HeroXP];
+	optional CSOAccountChallenge.ERewardType reward_type = 7 [default = k_eReward_HeroXP];
 	optional uint32 reward_param = 8;
 	optional uint32 reward_amount = 9;
 }
@@ -330,10 +335,10 @@ message CMsgCitadelClientHello {
 
 message CMsgClientToGCStartMatchmaking {
 	optional uint32 client_version = 1;
-	optional .EGCPlatform client_platform = 2 [default = k_eGCPlatform_None];
-	optional .CMsgStartFindingMatchInfo match_info = 3;
-	optional .CMsgRegionPingTimesClient ping_times = 4;
-	optional .CMsgHeroSelectionMatchInfo heroes = 5;
+	optional EGCPlatform client_platform = 2 [default = k_eGCPlatform_None];
+	optional CMsgStartFindingMatchInfo match_info = 3;
+	optional CMsgRegionPingTimesClient ping_times = 4;
+	optional CMsgHeroSelectionMatchInfo heroes = 5;
 }
 
 message CMsgClientToGCStartMatchmakingResponse {
@@ -366,7 +371,7 @@ message CMsgClientToGCStartMatchmakingResponse {
 		k_EResult_TooManyLimitedHeroes = 25;
 	}
 
-	optional .CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
+	optional CMsgClientToGCStartMatchmakingResponse.EResultCode result = 1 [default = k_EResult_OK];
 	optional uint32 time_stamp = 2;
 	optional string debug_message = 3;
 }
@@ -386,7 +391,7 @@ message CMsgGCToClientMatchmakingStopped {
 		k_EResult_HeroLabsClosed = 3;
 	}
 
-	optional .CMsgGCToClientMatchmakingStopped.EReason reason = 1 [default = k_EResult_Unspecified];
+	optional CMsgGCToClientMatchmakingStopped.EReason reason = 1 [default = k_EResult_Unspecified];
 }
 
 message CMsgClientToGCLeaveLobby {
@@ -398,9 +403,9 @@ message CMsgClientToGCLeaveLobbyResponse {
 
 message CMsgClientWelcomeCitadel {
 	optional uint32 currency = 1;
-	repeated .CExtraMsgBlock extra_messages = 2;
+	repeated CExtraMsgBlock extra_messages = 2;
 	optional uint32 compatibility_version = 3;
-	optional .ECitadelRegionMode region_mode = 4 [default = k_ECitadelRegionMode_ROW];
+	optional ECitadelRegionMode region_mode = 4 [default = k_ECitadelRegionMode_ROW];
 }
 
 message CMsgClientToGCIsInMatchmaking {
@@ -413,15 +418,15 @@ message CMsgClientToGCIsInMatchmakingResponse {
 message CMsgDevMatchInfo {
 	message MatchPlayer {
 		optional uint32 account_id = 1;
-		optional .ECitadelLobbyTeam team = 2 [default = k_ECitadelLobbyTeam_Team0];
+		optional ECitadelLobbyTeam team = 2 [default = k_ECitadelLobbyTeam_Team0];
 		optional bool abandoned = 3;
 		optional uint32 hero_id = 4;
 	}
 
 	optional uint32 start_time = 1;
-	optional .ECitadelLobbyTeam winning_team = 2 [default = k_ECitadelLobbyTeam_Team0];
+	optional ECitadelLobbyTeam winning_team = 2 [default = k_ECitadelLobbyTeam_Team0];
 	optional uint64 match_id = 3;
-	repeated .CMsgDevMatchInfo.MatchPlayer players = 4;
+	repeated CMsgDevMatchInfo.MatchPlayer players = 4;
 	optional fixed64 lobby_id = 5;
 	optional uint32 game_mode_version = 6;
 	optional uint32 net_worth_team_0 = 9;
@@ -431,10 +436,10 @@ message CMsgDevMatchInfo {
 	optional uint32 open_spectator_slots = 13;
 	optional uint64 objectives_mask_team0 = 14;
 	optional uint64 objectives_mask_team1 = 15;
-	optional .ECitadelMatchMode match_mode = 16 [default = k_ECitadelMatchMode_Invalid];
-	optional .ECitadelGameMode game_mode = 17 [default = k_ECitadelGameMode_Invalid];
+	optional ECitadelMatchMode match_mode = 16 [default = k_ECitadelMatchMode_Invalid];
+	optional ECitadelGameMode game_mode = 17 [default = k_ECitadelGameMode_Invalid];
 	optional uint32 match_score = 18;
-	optional .ECitadelRegionMode region_mode = 19 [default = k_ECitadelRegionMode_ROW];
+	optional ECitadelRegionMode region_mode = 19 [default = k_ECitadelRegionMode_ROW];
 	optional uint32 compat_version = 20;
 }
 
@@ -445,17 +450,17 @@ message CMsgGCToClientDevPlaytestStatus {
 	}
 
 	message DevQueueSize {
-		optional .ECitadelMatchMode match_mode = 1 [default = k_ECitadelMatchMode_Invalid];
+		optional ECitadelMatchMode match_mode = 1 [default = k_ECitadelMatchMode_Invalid];
 		optional uint32 queue_size = 2;
 	}
 
-	repeated .CMsgGCToClientDevPlaytestStatus.DevQueueSize dev_queue_size = 1;
+	repeated CMsgGCToClientDevPlaytestStatus.DevQueueSize dev_queue_size = 1;
 	optional uint32 dev_available_servers = 2;
 	optional uint32 coop_bot_max_wait_s = 3;
 	optional bool is_mm_enabled = 4;
 	optional bool locked_heroes = 8;
 	optional bool party_shared_heroes = 9;
-	repeated .CMsgGCToClientDevPlaytestStatus.HeroWhitelist hero_whitelists = 10;
+	repeated CMsgGCToClientDevPlaytestStatus.HeroWhitelist hero_whitelists = 10;
 	optional uint32 mm_pause_time = 14;
 	repeated uint32 valid_client_versions = 15;
 	optional uint32 active_match_count = 21;
@@ -501,27 +506,27 @@ message CMsgClientToGCPostMatchSurveyResponse {
 		optional string response_freeform = 3;
 	}
 
-	repeated .CMsgClientToGCPostMatchSurveyResponse.PostMatchSurvey post_match_survey = 1;
+	repeated CMsgClientToGCPostMatchSurveyResponse.PostMatchSurvey post_match_survey = 1;
 	optional uint64 match_id = 2;
 }
 
 message CMsgPartyMMInfo {
-	optional .EGCPlatform platform = 1 [default = k_eGCPlatform_None];
-	optional .CMsgRegionPingTimesClient ping_times = 2;
+	optional EGCPlatform platform = 1 [default = k_eGCPlatform_None];
+	optional CMsgRegionPingTimesClient ping_times = 2;
 	optional uint32 client_version = 3;
-	optional .ECitadelRegionMode region_mode = 4 [default = k_ECitadelRegionMode_ROW];
+	optional ECitadelRegionMode region_mode = 4 [default = k_ECitadelRegionMode_ROW];
 }
 
 message CMsgClientToGCPartyCreate {
-	optional .CMsgPartyMMInfo party_mm_info = 1;
+	optional CMsgPartyMMInfo party_mm_info = 1;
 	optional uint32 invite_account_id = 3;
 	optional bool disable_party_code = 4;
 	optional bool is_private_lobby = 5;
-	optional .ECitadelRegionMode region_mode = 6 [default = k_ECitadelRegionMode_ROW];
+	optional ECitadelRegionMode region_mode = 6 [default = k_ECitadelRegionMode_ROW];
 	optional string server_search_key = 7;
-	optional .ECitadelMMPreference mm_preference = 8 [default = k_ECitadelMMPreference_Invalid];
-	optional .CSOCitadelParty.PrivateLobbySettings private_lobby_settings = 9;
-	optional .ECitadelBotDifficulty bot_difficulty = 10 [default = k_ECitadelBotDifficulty_None];
+	optional ECitadelMMPreference mm_preference = 8 [default = k_ECitadelMMPreference_Invalid];
+	optional CSOCitadelParty.PrivateLobbySettings private_lobby_settings = 9;
+	optional ECitadelBotDifficulty bot_difficulty = 10 [default = k_ECitadelBotDifficulty_None];
 	optional string hideout_search_key = 11;
 	optional bool dev_force_hideout = 12;
 }
@@ -543,7 +548,7 @@ message CMsgClientToGCPartyCreateResponse {
 		k_ePlayerDoesntHaveGame = 12;
 	}
 
-	optional .CMsgClientToGCPartyCreateResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCPartyCreateResponse.EResponse result = 1 [default = k_eInternalError];
 	optional fixed64 party_id = 2;
 }
 
@@ -559,13 +564,13 @@ message CMsgClientToGCPartyLeaveResponse {
 		k_eInMatchMaking = 3;
 	}
 
-	optional .CMsgClientToGCPartyLeaveResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCPartyLeaveResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
 message CMsgClientToGCPartyJoin {
 	optional fixed64 party_id = 1;
 	optional bool is_rejoin = 2;
-	optional .CMsgPartyMMInfo party_mm_info = 3;
+	optional CMsgPartyMMInfo party_mm_info = 3;
 }
 
 message CMsgClientToGCPartyJoinResponse {
@@ -588,7 +593,7 @@ message CMsgClientToGCPartyJoinResponse {
 		k_ePartyFull = 15;
 	}
 
-	optional .CMsgClientToGCPartyJoinResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCPartyJoinResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
 message CMsgClientToGCPartyAction {
@@ -619,7 +624,7 @@ message CMsgClientToGCPartyAction {
 
 	optional fixed64 party_id = 1;
 	optional uint32 target_account_id = 2;
-	optional .CMsgClientToGCPartyAction.EAction action_id = 3 [default = k_eKickUser];
+	optional CMsgClientToGCPartyAction.EAction action_id = 3 [default = k_eKickUser];
 	optional uint64 uint_value = 4;
 	optional bool bool_value = 5;
 	optional string str_value = 6;
@@ -642,16 +647,16 @@ message CMsgClientToGCPartyActionResponse {
 		k_eSlotTaken = 13;
 	}
 
-	optional .CMsgClientToGCPartyActionResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCPartyActionResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
 message CMsgClientToGCPartySetMode {
 	optional fixed64 party_id = 1;
-	optional .ECitadelMatchMode match_mode = 2 [default = k_ECitadelMatchMode_Invalid];
-	optional .ECitadelGameMode game_mode = 3 [default = k_ECitadelGameMode_Invalid];
-	optional .ECitadelBotDifficulty bot_difficulty = 4 [default = k_ECitadelBotDifficulty_None];
+	optional ECitadelMatchMode match_mode = 2 [default = k_ECitadelMatchMode_Invalid];
+	optional ECitadelGameMode game_mode = 3 [default = k_ECitadelGameMode_Invalid];
+	optional ECitadelBotDifficulty bot_difficulty = 4 [default = k_ECitadelBotDifficulty_None];
 	optional string dev_server_command = 5;
-	optional .ECitadelRegionMode region_mode = 6 [default = k_ECitadelRegionMode_ROW];
+	optional ECitadelRegionMode region_mode = 6 [default = k_ECitadelRegionMode_ROW];
 }
 
 message CMsgClientToGCPartySetModeResponse {
@@ -683,7 +688,7 @@ message CMsgClientToGCPartySetModeResponse {
 		k_eAccountLocked = 25;
 	}
 
-	optional .CMsgClientToGCPartySetModeResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCPartySetModeResponse.EResponse result = 1 [default = k_eInternalError];
 	optional uint32 time_stamp = 2;
 	optional uint32 account_id = 3;
 }
@@ -726,7 +731,7 @@ message CMsgClientToGCPartyStartMatchResponse {
 		k_eNoHeroLabsWhileInLowPri = 31;
 	}
 
-	optional .CMsgClientToGCPartyStartMatchResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCPartyStartMatchResponse.EResponse result = 1 [default = k_eInternalError];
 	optional uint32 account_id = 2;
 }
 
@@ -751,7 +756,7 @@ message CMsgClientToGCPartyInviteUserResponse {
 		k_ePlayerDoesntHaveGame = 11;
 	}
 
-	optional .CMsgClientToGCPartyInviteUserResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCPartyInviteUserResponse.EResponse result = 1 [default = k_eInternalError];
 	optional bool user_online = 2;
 }
 
@@ -772,7 +777,7 @@ message CMsgGCToClientPartyEvent {
 	}
 
 	optional fixed64 party_id = 1;
-	optional .CMsgGCToClientPartyEvent.EEvent event = 2 [default = k_ePlayerKicked];
+	optional CMsgGCToClientPartyEvent.EEvent event = 2 [default = k_ePlayerKicked];
 	optional uint32 initiator_account_id = 3;
 	optional uint32 target_account_id = 4;
 	optional bytes bytes_data = 5;
@@ -786,18 +791,18 @@ message CMsgGCToClientCanRejoinParty {
 
 message CMsgClientToGCPartyJoinViaCode {
 	optional uint64 join_code = 1;
-	optional .CMsgPartyMMInfo party_mm_info = 2;
+	optional CMsgPartyMMInfo party_mm_info = 2;
 }
 
 message CMsgClientToGCPartyJoinViaCodeResponse {
-	optional .CMsgClientToGCPartyJoinResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCPartyJoinResponse.EResponse result = 1 [default = k_eInternalError];
 	optional fixed64 party_id = 2;
 }
 
 message CMsgClientToGCPartySetReadyState {
 	optional fixed64 party_id = 1;
 	optional bool ready_state = 2;
-	optional .CMsgHeroSelectionMatchInfo hero_roster = 3;
+	optional CMsgHeroSelectionMatchInfo hero_roster = 3;
 }
 
 message CMsgClientToGCPartySetReadyStateResponse {
@@ -818,7 +823,7 @@ message CMsgClientToGCPartySetReadyStateResponse {
 		k_eTooManyLimitedHeroes = 13;
 	}
 
-	optional .CMsgClientToGCPartySetReadyStateResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCPartySetReadyStateResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
 message CMsgClientToGCDevSetMMBias {
@@ -839,7 +844,7 @@ message CMsgClientToGCGetMatchHistoryResponse {
 		optional uint32 match_duration_s = 3;
 		optional uint32 start_time = 4;
 		optional uint32 match_result = 5;
-		optional .ECitadelLobbyTeam player_team = 6 [default = k_ECitadelLobbyTeam_Team0];
+		optional ECitadelLobbyTeam player_team = 6 [default = k_ECitadelLobbyTeam_Team0];
 		optional uint32 player_kills = 7;
 		optional uint32 player_deaths = 8;
 		optional uint32 player_assists = 9;
@@ -851,8 +856,8 @@ message CMsgClientToGCGetMatchHistoryResponse {
 		optional uint64 objectives_mask_team1 = 16;
 		optional bool team_abandoned = 17;
 		optional uint32 abandoned_time_s = 18;
-		optional .ECitadelMatchMode match_mode = 19 [default = k_ECitadelMatchMode_Invalid];
-		optional .ECitadelGameMode game_mode = 20 [default = k_ECitadelGameMode_Invalid];
+		optional ECitadelMatchMode match_mode = 19 [default = k_ECitadelMatchMode_Invalid];
+		optional ECitadelGameMode game_mode = 20 [default = k_ECitadelGameMode_Invalid];
 		optional bool not_scored = 21;
 		optional uint32 game_mode_version = 22;
 	}
@@ -866,15 +871,15 @@ message CMsgClientToGCGetMatchHistoryResponse {
 		k_eResult_RateLimited = 5;
 	}
 
-	optional .CMsgClientToGCGetMatchHistoryResponse.EResult result = 1 [default = k_eResult_InternalError];
+	optional CMsgClientToGCGetMatchHistoryResponse.EResult result = 1 [default = k_eResult_InternalError];
 	optional uint64 continue_cursor = 2;
-	repeated .CMsgClientToGCGetMatchHistoryResponse.Match matches = 3;
+	repeated CMsgClientToGCGetMatchHistoryResponse.Match matches = 3;
 }
 
 message CMsgClientToGCSpectateUser {
 	optional uint32 spectate_account_id = 1;
 	optional uint32 client_version = 3;
-	optional .EGCPlatform client_platform = 4 [default = k_eGCPlatform_None];
+	optional EGCPlatform client_platform = 4 [default = k_eGCPlatform_None];
 }
 
 message CMsgClientToGCSpectateUserResponse {
@@ -894,7 +899,7 @@ message CMsgClientToGCSpectateUserResponse {
 		k_eInvalidRegion = 12;
 	}
 
-	optional .CMsgClientToGCSpectateUserResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCSpectateUserResponse.EResponse result = 1 [default = k_eInternalError];
 	optional fixed64 server_steam_id = 3;
 	optional bytes sdr_key = 4;
 	optional uint32 udp_connect_ip = 5;
@@ -906,12 +911,12 @@ message CMsgClientToGCSpectateUserResponse {
 message CMsgClientToGCSpectateLobby {
 	optional uint64 lobby_id = 1;
 	optional uint32 client_version = 3;
-	optional .EGCPlatform client_platform = 4 [default = k_eGCPlatform_None];
+	optional EGCPlatform client_platform = 4 [default = k_eGCPlatform_None];
 	optional uint64 match_id = 5;
 }
 
 message CMsgClientToGCSpectateLobbyResponse {
-	optional .CMsgClientToGCSpectateUserResponse result = 1;
+	optional CMsgClientToGCSpectateUserResponse result = 1;
 }
 
 message CMsgClientToGCGetProfileCard {
@@ -923,7 +928,7 @@ message CMsgClientToGCGetProfileCard {
 message CMsgCitadelProfileCard {
 	message Slot {
 		message Stat {
-			optional .CMsgCitadelProfileCard.EStatID stat_id = 1 [default = k_eStat_Invalid];
+			optional CMsgCitadelProfileCard.EStatID stat_id = 1 [default = k_eStat_Invalid];
 			optional uint32 stat_score = 2;
 		}
 
@@ -934,8 +939,8 @@ message CMsgCitadelProfileCard {
 		}
 
 		optional uint32 slot_id = 1;
-		optional .CMsgCitadelProfileCard.Slot.Stat stat = 2;
-		optional .CMsgCitadelProfileCard.Slot.Hero hero = 3;
+		optional CMsgCitadelProfileCard.Slot.Stat stat = 2;
+		optional CMsgCitadelProfileCard.Slot.Hero hero = 3;
 	}
 
 	enum EStatID {
@@ -946,14 +951,14 @@ message CMsgCitadelProfileCard {
 	}
 
 	optional uint32 account_id = 1;
-	repeated .CMsgCitadelProfileCard.Slot slots = 2;
+	repeated CMsgCitadelProfileCard.Slot slots = 2;
 	optional uint32 ranked_badge_level = 3;
 }
 
 message CMsgClientToGCUpdateRoster {
-	optional .CMsgHeroSelectionMatchInfo heroes = 1;
-	optional .ECitadelGameMode game_mode = 2 [default = k_ECitadelGameMode_Invalid];
-	optional .ECitadelMatchMode match_mode = 3 [default = k_ECitadelMatchMode_Invalid];
+	optional CMsgHeroSelectionMatchInfo heroes = 1;
+	optional ECitadelGameMode game_mode = 2 [default = k_ECitadelGameMode_Invalid];
+	optional ECitadelMatchMode match_mode = 3 [default = k_ECitadelMatchMode_Invalid];
 }
 
 message CMsgClientToGCUpdateRosterResponse {
@@ -968,7 +973,7 @@ message CMsgClientToGCUpdateRosterResponse {
 		k_eHeroesNotUnlocked = 7;
 	}
 
-	optional .CMsgClientToGCUpdateRosterResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCUpdateRosterResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
 message CMsgClientToGCGetAccountStats {
@@ -987,8 +992,8 @@ message CMsgClientToGCGetAccountStatsResponse {
 		k_eInvalidPermissions = 5;
 	}
 
-	optional .CMsgClientToGCGetAccountStatsResponse.EResult result = 1 [default = k_eInternalError];
-	optional .CMsgAccountStats stats = 2;
+	optional CMsgClientToGCGetAccountStatsResponse.EResult result = 1 [default = k_eInternalError];
+	optional CMsgAccountStats stats = 2;
 }
 
 message CMsgClientToGCGetMatchMetaData {
@@ -1010,7 +1015,7 @@ message CMsgClientToGCGetMatchMetaDataResponse {
 		k_eResult_Timeout = 8;
 	}
 
-	optional .CMsgClientToGCGetMatchMetaDataResponse.EResult result = 1 [default = k_eResult_InternalError];
+	optional CMsgClientToGCGetMatchMetaDataResponse.EResult result = 1 [default = k_eResult_InternalError];
 	optional uint32 replay_salt = 2;
 	optional uint32 metadata_salt = 3;
 	optional uint32 replay_valid_through = 4;
@@ -1029,7 +1034,7 @@ message CMsgGCToClientDevAnnouncements {
 		optional string patch_version = 7;
 	}
 
-	repeated .CMsgGCToClientDevAnnouncements.Announcement announcements = 1;
+	repeated CMsgGCToClientDevAnnouncements.Announcement announcements = 1;
 }
 
 message CMsgClientToGCModifyDevAnnouncements {
@@ -1039,7 +1044,7 @@ message CMsgClientToGCModifyDevAnnouncements {
 		k_eDelete = 2;
 	}
 
-	optional .CMsgClientToGCModifyDevAnnouncements.EOperation operation = 1 [default = k_eCreate];
+	optional CMsgClientToGCModifyDevAnnouncements.EOperation operation = 1 [default = k_eCreate];
 	optional uint32 target_id = 2;
 	optional uint32 priority = 3;
 	optional string title = 4;
@@ -1056,7 +1061,7 @@ message CMsgClientToGCModifyDevAnnouncementsResponse {
 		k_eInternalError = 3;
 	}
 
-	optional .CMsgClientToGCModifyDevAnnouncementsResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgClientToGCModifyDevAnnouncementsResponse.EResult result = 1 [default = k_eSuccess];
 }
 
 message CMsgClientToGCDevAction {
@@ -1076,7 +1081,7 @@ message CMsgClientToGCDevAction {
 		k_eResetAccountSurvey = 14;
 	}
 
-	optional .CMsgClientToGCDevAction.EAction action = 1 [default = k_eSetDeveloper];
+	optional CMsgClientToGCDevAction.EAction action = 1 [default = k_eSetDeveloper];
 	optional uint32 account_id = 2;
 	optional uint32 uint_value = 3;
 	optional int32 int_value = 4;
@@ -1093,18 +1098,18 @@ message CMsgClientToGCDevActionResponse {
 		k_eInternalError = 3;
 	}
 
-	optional .CMsgClientToGCDevActionResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgClientToGCDevActionResponse.EResult result = 1 [default = k_eSuccess];
 }
 
 message CMsgClientToGCRecordClientEvents {
 	message Event {
 		optional uint32 time_stamp = 1;
-		optional .ECitadelClientAccountEvent event_id = 2 [default = k_eLaunchedHeroTest];
+		optional ECitadelClientAccountEvent event_id = 2 [default = k_eLaunchedHeroTest];
 		optional uint64 event_data = 3;
 		optional uint32 client_event_index = 4;
 	}
 
-	repeated .CMsgClientToGCRecordClientEvents.Event events = 1;
+	repeated CMsgClientToGCRecordClientEvents.Event events = 1;
 	optional uint32 client_run_token = 2;
 }
 
@@ -1113,7 +1118,7 @@ message CMsgClientToGCRecordClientEventsResponse {
 }
 
 message CMsgClientToGCSetNewPlayerProgress {
-	optional .ECitadelNewPlayerProgressFlag flag = 1 [default = k_eNewPlayerProgress_GettingStarted];
+	optional ECitadelNewPlayerProgressFlag flag = 1 [default = k_eNewPlayerProgress_GettingStarted];
 }
 
 message CMsgClientToGCSetNewPlayerProgressResponse {
@@ -1134,7 +1139,7 @@ message CMsgClientToGCUpdateAccountSyncResponse {
 		k_eInvalidMessage = 4;
 	}
 
-	optional .CMsgClientToGCUpdateAccountSyncResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCUpdateAccountSyncResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
 message CMsgClientToGCGetHeroChoice {
@@ -1155,8 +1160,8 @@ message CMsgClientToGCGetHeroChoiceResponse {
 		k_eChoiceClosed = 6;
 	}
 
-	optional .CMsgClientToGCGetHeroChoiceResponse.EResult result = 1 [default = k_eSuccess];
-	repeated .CMsgClientToGCGetHeroChoiceResponse.Hero hero_selections = 2;
+	optional CMsgClientToGCGetHeroChoiceResponse.EResult result = 1 [default = k_eSuccess];
+	repeated CMsgClientToGCGetHeroChoiceResponse.Hero hero_selections = 2;
 	optional uint32 hero_choice_id = 3;
 	optional uint32 select_count = 4;
 }
@@ -1176,7 +1181,7 @@ message CMsgClientToGCUnlockHeroResponse {
 		k_eTooBusy = 5;
 	}
 
-	optional .CMsgClientToGCUnlockHeroResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgClientToGCUnlockHeroResponse.EResult result = 1 [default = k_eSuccess];
 }
 
 message CMsgAccountBook {
@@ -1188,7 +1193,7 @@ message CMsgAccountBook {
 	optional uint32 book_id = 1;
 	optional uint32 book_xp = 2;
 	optional uint32 spent_xp = 3;
-	repeated .CMsgAccountBook.Unlock unlocks = 4;
+	repeated CMsgAccountBook.Unlock unlocks = 4;
 }
 
 message CMsgClientToGCBookUnlock {
@@ -1209,8 +1214,8 @@ message CMsgClientToGCBookUnlockResponse {
 		k_eAlreadyUnlocked = 6;
 	}
 
-	optional .CMsgClientToGCBookUnlockResponse.EResult result = 1 [default = k_eSuccess];
-	optional .CMsgAccountBook updated_book = 2;
+	optional CMsgClientToGCBookUnlockResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgAccountBook updated_book = 2;
 }
 
 message CMsgClientToGCGetBook {
@@ -1226,12 +1231,12 @@ message CMsgClientToGCGetBookResponse {
 		k_eTooBusy = 4;
 	}
 
-	optional .CMsgClientToGCGetBookResponse.EResult result = 1 [default = k_eSuccess];
-	optional .CMsgAccountBook book = 2;
+	optional CMsgClientToGCGetBookResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgAccountBook book = 2;
 }
 
 message CMsgGCToClientBookUpdated {
-	optional .CMsgAccountBook book = 1;
+	optional CMsgAccountBook book = 1;
 }
 
 message CMsgClientToGCSubmitPlaytestUser {
@@ -1250,11 +1255,11 @@ message CMsgClientToGCSubmitPlaytestUserResponse {
 		eResponse_InviteLimitReached = 7;
 	}
 
-	optional .CMsgClientToGCSubmitPlaytestUserResponse.EResponse response = 1 [default = eResponse_Success];
+	optional CMsgClientToGCSubmitPlaytestUserResponse.EResponse response = 1 [default = eResponse_Success];
 }
 
 message CMsgClientToGCUpdateHeroBuild {
-	optional .CMsgHeroBuild hero_build = 1;
+	optional CMsgHeroBuild hero_build = 1;
 }
 
 message CMsgClientToGCUpdateHeroBuildResponse {
@@ -1263,7 +1268,7 @@ message CMsgClientToGCUpdateHeroBuildResponse {
 		k_eSuccess = 1;
 	}
 
-	optional .CMsgClientToGCUpdateHeroBuildResponse.EResponse response = 1 [default = k_eInternalError];
+	optional CMsgClientToGCUpdateHeroBuildResponse.EResponse response = 1 [default = k_eInternalError];
 	optional uint32 hero_build_id = 2;
 	optional uint32 version = 3;
 }
@@ -1279,8 +1284,8 @@ message CMsgClientToGCFindHeroBuilds {
 
 message CMsgClientToGCFindHeroBuildsResponse {
 	message HeroBuildResult {
-		optional .CMsgHeroBuild hero_build = 1;
-		optional .CMsgHeroBuildPreference preference = 2;
+		optional CMsgHeroBuild hero_build = 1;
+		optional CMsgHeroBuildPreference preference = 2;
 		optional uint32 num_favorites = 3;
 		optional uint32 num_ignores = 4;
 		optional uint32 num_reports = 5;
@@ -1295,14 +1300,14 @@ message CMsgClientToGCFindHeroBuildsResponse {
 		k_eTooBusy = 2;
 	}
 
-	optional .CMsgClientToGCFindHeroBuildsResponse.EResponse response = 1 [default = k_eInternalError];
-	repeated .CMsgClientToGCFindHeroBuildsResponse.HeroBuildResult results = 2;
+	optional CMsgClientToGCFindHeroBuildsResponse.EResponse response = 1 [default = k_eInternalError];
+	repeated CMsgClientToGCFindHeroBuildsResponse.HeroBuildResult results = 2;
 	optional uint32 build_window_start_time_override = 3;
 }
 
 message CMsgClientToGCUpdateHeroBuildPreference {
 	optional uint32 hero_build_id = 1;
-	optional .CMsgHeroBuildPreference preference = 2;
+	optional CMsgHeroBuildPreference preference = 2;
 }
 
 message CMsgClientToGCUpdateHeroBuildPreferenceResponse {
@@ -1311,7 +1316,7 @@ message CMsgClientToGCUpdateHeroBuildPreferenceResponse {
 		k_eSuccess = 1;
 	}
 
-	optional .CMsgClientToGCUpdateHeroBuildPreferenceResponse.EResponse response = 1 [default = k_eInternalError];
+	optional CMsgClientToGCUpdateHeroBuildPreferenceResponse.EResponse response = 1 [default = k_eInternalError];
 }
 
 message CMsgClientToGCReportPlayerFromMatch {
@@ -1327,7 +1332,7 @@ message CMsgClientToGCReportPlayerFromMatch {
 
 	optional uint64 match_id = 1;
 	optional uint32 target_account_id = 2;
-	optional .CMsgClientToGCReportPlayerFromMatch.EReportType report_type = 3 [default = k_eReport_None];
+	optional CMsgClientToGCReportPlayerFromMatch.EReportType report_type = 3 [default = k_eReport_None];
 	optional string report_text = 4;
 }
 
@@ -1345,7 +1350,7 @@ message CMsgClientToGCReportPlayerFromMatchResponse {
 		k_eTimeout = 9;
 	}
 
-	optional .CMsgClientToGCReportPlayerFromMatchResponse.EResponse response = 1 [default = k_eInternalError];
+	optional CMsgClientToGCReportPlayerFromMatchResponse.EResponse response = 1 [default = k_eInternalError];
 }
 
 message CMsgClientToGCGetAccountMatchReports {
@@ -1368,9 +1373,9 @@ message CMsgClientToGCGetAccountMatchReportsResponse {
 		k_eTooBusy = 7;
 	}
 
-	optional .CMsgClientToGCGetAccountMatchReportsResponse.EResponse response = 1 [default = k_eInternalError];
-	repeated .CMsgClientToGCGetAccountMatchReportsResponse.Report reports = 2;
-	repeated .CMsgClientToGCGetAccountMatchReportsResponse.Commend commends = 3;
+	optional CMsgClientToGCGetAccountMatchReportsResponse.EResponse response = 1 [default = k_eInternalError];
+	repeated CMsgClientToGCGetAccountMatchReportsResponse.Report reports = 2;
+	repeated CMsgClientToGCGetAccountMatchReportsResponse.Commend commends = 3;
 }
 
 message CMsgClientToGCDeleteHeroBuild {
@@ -1384,7 +1389,7 @@ message CMsgClientToGCDeleteHeroBuildResponse {
 		k_eSuccess = 1;
 	}
 
-	optional .CMsgClientToGCDeleteHeroBuildResponse.EResponse response = 1 [default = k_eInternalError];
+	optional CMsgClientToGCDeleteHeroBuildResponse.EResponse response = 1 [default = k_eInternalError];
 	optional uint32 builds_deleted = 2;
 }
 
@@ -1392,7 +1397,7 @@ message CMsgClientToGCGetActiveMatches {
 }
 
 message CMsgClientToGCGetActiveMatchesResponse {
-	repeated .CMsgDevMatchInfo active_matches = 1;
+	repeated CMsgDevMatchInfo active_matches = 1;
 }
 
 message CMsgClientToGCGetDiscordLink {
@@ -1407,7 +1412,7 @@ message CMsgClientToGCGetDiscordLinkResponse {
 		k_eDisabled = 4;
 	}
 
-	optional .CMsgClientToGCGetDiscordLinkResponse.EResponse response = 1 [default = k_eInternalError];
+	optional CMsgClientToGCGetDiscordLinkResponse.EResponse response = 1 [default = k_eInternalError];
 	optional string discord_link = 2;
 	optional uint32 valid_hours = 3;
 }
@@ -1425,7 +1430,7 @@ message CMsgClientToGCGrantForumAccessResponse {
 		k_eEmailUsed = 4;
 	}
 
-	optional .CMsgClientToGCGrantForumAccessResponse.EResponse response = 1 [default = k_eInternalError];
+	optional CMsgClientToGCGrantForumAccessResponse.EResponse response = 1 [default = k_eInternalError];
 	optional string email = 2;
 	optional string username = 3;
 	optional string forum_password = 4;
@@ -1452,7 +1457,7 @@ message CMsgClientToGCGetFriendGameStatusResponse {
 		k_eDisabled = 3;
 	}
 
-	optional .CMsgClientToGCGetFriendGameStatusResponse.EResponse response = 1 [default = k_eInternalError];
+	optional CMsgClientToGCGetFriendGameStatusResponse.EResponse response = 1 [default = k_eInternalError];
 	repeated uint32 friends_played_game = 2 [packed = true];
 	repeated uint32 friends_invited = 3 [packed = true];
 	repeated uint32 friends_invites_sent = 4 [packed = true];
@@ -1466,7 +1471,7 @@ message CMsgClientToGCUpdateSpectatorStatus {
 message CMsgClientToGCCommendPlayerFromMatch {
 	optional uint64 match_id = 1;
 	optional uint32 target_account_id = 2;
-	optional .ECommendType commend_type = 3 [default = k_eInvalid];
+	optional ECommendType commend_type = 3 [default = k_eInvalid];
 	optional uint32 fake_commend_hero_id = 4;
 }
 
@@ -1480,14 +1485,14 @@ message CMsgClientToGCCommendPlayerFromMatchResponse {
 		k_eTimeout = 5;
 	}
 
-	optional .CMsgClientToGCCommendPlayerFromMatchResponse.EResponse result = 1 [default = k_eInternalError];
+	optional CMsgClientToGCCommendPlayerFromMatchResponse.EResponse result = 1 [default = k_eInternalError];
 }
 
 message CMsgGCToClientCommendNotification {
 	optional uint32 commender_account_id = 1;
 	optional string commender_name = 2;
 	optional uint32 commender_hero_id = 4;
-	optional .ECommendType commend_type = 5 [default = k_eInvalid];
+	optional ECommendType commend_type = 5 [default = k_eInvalid];
 	optional uint64 match_id = 6;
 	optional bool enemy_commend = 7;
 }
@@ -1508,8 +1513,8 @@ message CMsgClientToGCRequestCheatReportsResponse {
 		k_eInternalError = 2;
 	}
 
-	optional .CMsgClientToGCRequestCheatReportsResponse.EResult result = 1 [default = k_eSuccess];
-	repeated .CMsgClientToGCRequestCheatReportsResponse.RecentCheatReport cheat_reports = 2;
+	optional CMsgClientToGCRequestCheatReportsResponse.EResult result = 1 [default = k_eSuccess];
+	repeated CMsgClientToGCRequestCheatReportsResponse.RecentCheatReport cheat_reports = 2;
 }
 
 message CMsgClientToGCGetHeroMMRRankings {
@@ -1529,12 +1534,12 @@ message CMsgClientToGCGetHeroMMRRankingsResponse {
 		k_eTooBusy = 3;
 	}
 
-	optional .CMsgClientToGCGetHeroMMRRankingsResponse.EResult result = 1 [default = k_eSuccess];
-	repeated .CMsgClientToGCGetHeroMMRRankingsResponse.Hero heroes = 2;
+	optional CMsgClientToGCGetHeroMMRRankingsResponse.EResult result = 1 [default = k_eSuccess];
+	repeated CMsgClientToGCGetHeroMMRRankingsResponse.Hero heroes = 2;
 }
 
 message CMsgClientToGCGetLeaderboard {
-	optional .ECitadelLeaderboardRegion leaderboard_region = 1 [default = k_ECitadelLeaderboardRegion_None];
+	optional ECitadelLeaderboardRegion leaderboard_region = 1 [default = k_ECitadelLeaderboardRegion_None];
 	optional uint32 hero_id = 2;
 }
 
@@ -1553,8 +1558,8 @@ message CMsgClientToGCGetLeaderboardResponse {
 		k_eTooBusy = 3;
 	}
 
-	optional .CMsgClientToGCGetLeaderboardResponse.EResult result = 1 [default = k_eSuccess];
-	repeated .CMsgClientToGCGetLeaderboardResponse.LeaderboardEntry entries = 2;
+	optional CMsgClientToGCGetLeaderboardResponse.EResult result = 1 [default = k_eSuccess];
+	repeated CMsgClientToGCGetLeaderboardResponse.LeaderboardEntry entries = 2;
 	optional int32 local_player_index = 3 [default = -1];
 }
 
@@ -1564,7 +1569,7 @@ message CMsgClientToGCGetAccountLeaderboards {
 
 message CMsgClientToGCGetAccountLeaderboardsResponse {
 	message LeaderboardEntry {
-		optional .ECitadelLeaderboardRegion region = 1 [default = k_ECitadelLeaderboardRegion_None];
+		optional ECitadelLeaderboardRegion region = 1 [default = k_ECitadelLeaderboardRegion_None];
 		optional uint32 hero_id = 2;
 		optional uint32 rank = 3;
 	}
@@ -1576,9 +1581,9 @@ message CMsgClientToGCGetAccountLeaderboardsResponse {
 		k_eTooBusy = 3;
 	}
 
-	optional .CMsgClientToGCGetAccountLeaderboardsResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgClientToGCGetAccountLeaderboardsResponse.EResult result = 1 [default = k_eSuccess];
 	optional string account_name = 2;
-	repeated .CMsgClientToGCGetAccountLeaderboardsResponse.LeaderboardEntry entries = 3;
+	repeated CMsgClientToGCGetAccountLeaderboardsResponse.LeaderboardEntry entries = 3;
 }
 
 message CMsgClientToGCGenerateChallengeSet {
@@ -1592,7 +1597,7 @@ message CMsgClientToGCGenerateChallengeSetResponse {
 		k_eChallengeChoiceExists = 3;
 	}
 
-	optional .CMsgClientToGCGenerateChallengeSetResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgClientToGCGenerateChallengeSetResponse.EResult result = 1 [default = k_eSuccess];
 }
 
 message CMsgClientToGCChallengeActivate {
@@ -1606,7 +1611,7 @@ message CMsgClientToGCChallengeActivateResponse {
 		k_eInvalidChallenge = 2;
 	}
 
-	optional .CMsgClientToGCChallengeActivateResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgClientToGCChallengeActivateResponse.EResult result = 1 [default = k_eSuccess];
 }
 
 message CMsgClientToGCChallengeClaim {
@@ -1621,7 +1626,7 @@ message CMsgClientToGCChallengeClaimResponse {
 		k_eChallengeIncomplete = 3;
 	}
 
-	optional .CMsgClientToGCChallengeClaimResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgClientToGCChallengeClaimResponse.EResult result = 1 [default = k_eSuccess];
 }
 
 message CMsgClientToGCChallengeCancel {
@@ -1636,7 +1641,7 @@ message CMsgClientToGCChallengeCancelResponse {
 		k_eChallengeComplete = 3;
 	}
 
-	optional .CMsgClientToGCChallengeCancelResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgClientToGCChallengeCancelResponse.EResult result = 1 [default = k_eSuccess];
 }
 
 message CMsgSurveyQuestion {
@@ -1650,7 +1655,7 @@ message CMsgSurveyQuestion {
 	}
 
 	optional uint32 question_id = 1;
-	optional .CMsgSurveyQuestion.EQuestionType question_type = 2 [default = k_eInvalid];
+	optional CMsgSurveyQuestion.EQuestionType question_type = 2 [default = k_eInvalid];
 	repeated uint32 question_params = 3;
 	optional uint32 remaining_questions = 4;
 	optional uint32 answered_questions = 5;
@@ -1666,8 +1671,8 @@ message CMsgClientToGCGetSurveyQuestionResponse {
 		k_eTooBusy = 2;
 	}
 
-	optional .CMsgClientToGCGetSurveyQuestionResponse.EResult result = 1 [default = k_eSuccess];
-	optional .CMsgSurveyQuestion question = 2;
+	optional CMsgClientToGCGetSurveyQuestionResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgSurveyQuestion question = 2;
 }
 
 message CMsgClientToGCSubmitSurvey {
@@ -1683,8 +1688,8 @@ message CMsgClientToGCSubmitSurveyResponse {
 		k_eTooBusy = 2;
 	}
 
-	optional .CMsgClientToGCSubmitSurveyResponse.EResult result = 1 [default = k_eSuccess];
-	optional .CMsgSurveyQuestion question = 2;
+	optional CMsgClientToGCSubmitSurveyResponse.EResult result = 1 [default = k_eSuccess];
+	optional CMsgSurveyQuestion question = 2;
 }
 
 message CMsgClientToGCGetRankData {
@@ -1696,14 +1701,14 @@ message CMsgGCToClientGetRankDataResponse {
 		k_Failed = 1;
 	}
 
-	optional .CMsgGCToClientGetRankDataResponse.EResultCode result = 1 [default = k_Succeeded];
+	optional CMsgGCToClientGetRankDataResponse.EResultCode result = 1 [default = k_Succeeded];
 	optional int32 current_rank_confidence = 2;
 	optional int32 calibrated_rank_confidence = 3;
 	optional bool requires_calibration = 4;
 }
 
 message CMsgGCToClientRankDataUpdate {
-	optional .CMsgGCToClientGetRankDataResponse rank_info = 2;
+	optional CMsgGCToClientGetRankDataResponse rank_info = 2;
 }
 
 message CMsgHeroReleaseVoteStatus {
@@ -1733,7 +1738,7 @@ message CMsgClientToGCPartySendChatMsgResponse {
 		k_eInvalidMsg = 5;
 	}
 
-	optional .CMsgClientToGCPartySendChatMsgResponse.EResultCode result = 1 [default = k_eSuccess];
+	optional CMsgClientToGCPartySendChatMsgResponse.EResultCode result = 1 [default = k_eSuccess];
 }
 
 message CMsgGCToClientPartyChatMsg {
@@ -1744,5 +1749,5 @@ message CMsgGCToClientPartyChatMsg {
 	}
 
 	optional fixed64 party_id = 1;
-	repeated .CMsgGCToClientPartyChatMsg.ChatLine chat_lines = 2;
+	repeated CMsgGCToClientPartyChatMsg.ChatLine chat_lines = 2;
 }

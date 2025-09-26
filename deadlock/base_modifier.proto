@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "networkbasetypes.proto";
 
 enum MODIFIER_ENTRY_TYPE {
@@ -6,7 +11,7 @@ enum MODIFIER_ENTRY_TYPE {
 }
 
 message CModifierTableEntry {
-	required .MODIFIER_ENTRY_TYPE entry_type = 1 [default = MODIFIER_ENTRY_TYPE_ACTIVE];
+	required MODIFIER_ENTRY_TYPE entry_type = 1 [default = MODIFIER_ENTRY_TYPE_ACTIVE];
 	required uint32 parent = 2 [default = 16777215];
 	required uint32 serial_number = 3;
 	optional uint32 modifier_subclass = 4;
@@ -42,10 +47,10 @@ message CModifierTableEntry {
 	optional uint64 uint2_ = 36;
 	optional uint64 uint3_ = 37;
 	optional uint64 uint4_ = 38;
-	optional .CMsgVector vec1_ = 40;
-	optional .CMsgVector vec2_ = 41;
-	optional .CMsgVector vec3_ = 42;
-	optional .CMsgVector vec4_ = 43;
+	optional CMsgVector vec1_ = 40;
+	optional CMsgVector vec2_ = 41;
+	optional CMsgVector vec3_ = 42;
+	optional CMsgVector vec4_ = 43;
 	optional string string1_ = 45;
 	optional string string2_ = 46;
 	optional string string3_ = 47;

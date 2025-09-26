@@ -1,3 +1,8 @@
+syntax = "proto2";
+
+package deadlock;
+option go_package = "github.com/RyPort/paradox-parser/deadlock;deadlock";
+
 import "steammessages_unified_base.steamworkssdk.proto";
 
 option cc_generic_services = true;
@@ -16,7 +21,7 @@ message CHelpRequestLogs_UploadUserApplicationLog_Response {
 service HelpRequestLogs {
 	option (service_description) = "Service for dealing with user-submitted logs";
 
-	rpc UploadUserApplicationLog (.CHelpRequestLogs_UploadUserApplicationLog_Request) returns (.CHelpRequestLogs_UploadUserApplicationLog_Response) {
+	rpc UploadUserApplicationLog (CHelpRequestLogs_UploadUserApplicationLog_Request) returns (CHelpRequestLogs_UploadUserApplicationLog_Response) {
 		option (method_description) = "User uploading application logs";
 	}
 }
