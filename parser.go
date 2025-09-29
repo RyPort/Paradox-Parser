@@ -1,11 +1,11 @@
-package manta
+package deadlock
 
 import (
 	"bytes"
 	"fmt"
 	"io"
+	"paradox-parser/deadlock"
 
-	"github.com/dotabuff/manta/dota"
 	"github.com/golang/snappy"
 )
 
@@ -107,7 +107,7 @@ func NewStreamParser(r io.Reader) (*Parser, error) {
 	parser.Callbacks.OnCSVCMsg_PacketEntities(parser.onCSVCMsg_PacketEntities)
 
 	// Maintains the value of parser.Tick
-	parser.Callbacks.OnCNETMsg_Tick(func(m *dota.CNETMsg_Tick) error {
+	parser.Callbacks.OnCNETMsg_Tick(func(m *deadlock.CNETMsg_Tick) error {
 		parser.NetTick = m.GetTick()
 		return nil
 	})
@@ -201,8 +201,8 @@ func (p *Parser) readOuterMessage() (*outerMessage, error) {
 	}
 
 	// Extract the type and compressed flag out of the command
-	msgType := int32(command & ^dota.EDemoCommands_DEM_IsCompressed)
-	msgCompressed := (command & dota.EDemoCommands_DEM_IsCompressed) == dota.EDemoCommands_DEM_IsCompressed
+	msgType := int32(command & ^deadlock.EDemoCommands_DEM_IsCompressed)
+	msgCompressed := (command & deadlock.EDemoCommands_DEM_IsCompressed) == deadlock.EDemoCommands_DEM_IsCompressed
 
 	// Read the tick that the message corresponds with.
 	tick, err := p.stream.readVarUint32()
